@@ -7,15 +7,21 @@
 
 import UIKit
 
+enum InputState: String {
+    case scissors
+    case rock
+    case paper
+}
+
+enum GameResult: String {
+    case win = "이겼다"
+    case draw = "비겼다"
+    case lose = "졌다"
+}
+
 class ScissorsRockPaperGameViewController: UIViewController {
     
     let gameImageNameData:[InputState] = [.scissors, .rock, .paper]
-    
-    enum InputState: String {
-        case scissors
-        case rock
-        case paper
-    }
     
     lazy var playStackView: UIStackView = {
         let stackView = UIStackView()
@@ -47,8 +53,8 @@ class ScissorsRockPaperGameViewController: UIViewController {
         return stackView
     }()
     
-    lazy var scissorsButton: UIButton = {
-        let button = UIButton()
+    lazy var scissorsButton: GameButton = {
+        let button = GameButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("가위", for: .normal)
         button.backgroundColor = .orange
@@ -56,8 +62,8 @@ class ScissorsRockPaperGameViewController: UIViewController {
         return button
     }()
     
-    lazy var rockButton: UIButton = {
-        let button = UIButton()
+    lazy var rockButton: GameButton = {
+        let button = GameButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("바위", for: .normal)
         button.backgroundColor = .gray
@@ -65,8 +71,8 @@ class ScissorsRockPaperGameViewController: UIViewController {
         return button
     }()
     
-    lazy var paperButton: UIButton = {
-        let button = UIButton()
+    lazy var paperButton: GameButton = {
+        let button = GameButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("보", for: .normal)
         button.backgroundColor = .purple
@@ -78,6 +84,7 @@ class ScissorsRockPaperGameViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "결과는?"
+        label.textColor = .white
         return label
     }()
     
@@ -85,6 +92,7 @@ class ScissorsRockPaperGameViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Player?"
+        label.textColor = .white
         return label
     }()
     
@@ -92,12 +100,12 @@ class ScissorsRockPaperGameViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "COM?"
+        label.textColor = .white
         return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
         
         view.addSubview(playStackView)
         playStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -131,62 +139,58 @@ class ScissorsRockPaperGameViewController: UIViewController {
         inputStackView.addArrangedSubview(rockButton)
         inputStackView.addArrangedSubview(paperButton)
         
+        scissorsButton.gameTag = .scissors
+        rockButton.gameTag = .rock
+        paperButton.gameTag = .paper
+        
         scissorsButton.addTarget(self, action: #selector(didTapChangeGameImageButton), for: .touchUpInside)
-        rockButton.addTarget(self, action: #selector(didTapChangeGameImageButton2), for: .touchUpInside)
-        paperButton.addTarget(self, action: #selector(didTapChangeGameImageButton3), for: .touchUpInside)
+        rockButton.addTarget(self, action: #selector(didTapChangeGameImageButton), for: .touchUpInside)
+        paperButton.addTarget(self, action: #selector(didTapChangeGameImageButton), for: .touchUpInside)
     }
 
-    @objc func didTapChangeGameImageButton() {
-        myGameImageView.image = UIImage(named: "scissors")
-        let randomInput = gameImageNameData.randomElement()!
-        computerGameImageView.image = UIImage(named: randomInput.rawValue)
-        gameResultLabel.text = fetchGameResult(myInput: .scissors, computerInput: randomInput)
-    }
-    
-    @objc func didTapChangeGameImageButton2() {
-        myGameImageView.image = UIImage(named: "rock")
-        let randomInput = gameImageNameData.randomElement()!
-        computerGameImageView.image = UIImage(named: randomInput.rawValue)
-        gameResultLabel.text = fetchGameResult(myInput: .rock, computerInput: randomInput)
-    }
-    
-    @objc func didTapChangeGameImageButton3() {
-        myGameImageView.image = UIImage(named: "paper")
-        let randomInput = gameImageNameData.randomElement()!
-        computerGameImageView.image = UIImage(named: randomInput.rawValue)
-        gameResultLabel.text = fetchGameResult(myInput: .paper, computerInput: randomInput)
-    }
-    
-    private func fetchGameResult(myInput: InputState, computerInput: InputState) -> String {
-        // 내가 낸 값, 컴퓨터의 값
-        switch myInput {
+    @objc func didTapChangeGameImageButton(_ sender: UIButton) {
+        
+        guard let sender = sender as? GameButton else { return }
+        
+        switch sender.gameTag {
         case .scissors:
-            switch computerInput{
-            case .scissors:
-                return "비김"
-            case .rock:
-                return "짐"
-            case .paper:
-                return "이김"
-            }
+            myGameImageView.image = UIImage(named: "scissors")
         case .rock:
-            switch computerInput{
-            case .scissors:
-                return "이김"
-            case .rock:
-                return "비김"
-            case .paper:
-                return "짐"
-            }
+            myGameImageView.image = UIImage(named: "rock")
         case .paper:
-            switch computerInput{
-            case .scissors:
-                return "짐"
-            case .rock:
-                return "이김"
-            case .paper:
-                return "비김"
-            }
+            myGameImageView.image = UIImage(named: "paper")
+        }
+        
+        let randomInput = gameImageNameData.randomElement()!
+        computerGameImageView.image = UIImage(named: randomInput.rawValue)
+        gameResultLabel.text = fetchGameResult(myInput: sender.gameTag, computerInput: randomInput).rawValue
+    }
+    
+    private func fetchGameResult(myInput: InputState, computerInput: InputState) -> GameResult {
+        // 내가 낸 값, 컴퓨터의 값
+        switch (myInput,computerInput) {
+        case (.scissors, .scissors):
+            return .draw
+        case (.scissors, .rock):
+            return .lose
+        case (.scissors, .paper):
+            return .win
+        case (.rock, .scissors):
+            return .win
+        case (.rock, .rock):
+            return .draw
+        case (.rock, .paper):
+            return .lose
+        case (.paper, .scissors):
+            return .lose
+        case (.paper, .rock):
+            return .win
+        case (.paper, .paper):
+            return .draw
         }
     }
+}
+
+class GameButton: UIButton {
+    var gameTag: InputState = .rock
 }
