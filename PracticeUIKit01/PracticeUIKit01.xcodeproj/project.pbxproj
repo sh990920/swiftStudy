@@ -15,6 +15,7 @@
 		A208E11D2BD62C98004E8605 /* PracticeUIKit01UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E11C2BD62C98004E8605 /* PracticeUIKit01UITests.swift */; };
 		A208E11F2BD62C98004E8605 /* PracticeUIKit01UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E11E2BD62C98004E8605 /* PracticeUIKit01UITestsLaunchTests.swift */; };
 		A208E12C2BD62E05004E8605 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E12B2BD62E05004E8605 /* MyViewController.swift */; };
+		A208E12E2BD642C0004E8605 /* SecondAppMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E12D2BD642C0004E8605 /* SecondAppMainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		A208E11C2BD62C98004E8605 /* PracticeUIKit01UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeUIKit01UITests.swift; sourceTree = "<group>"; };
 		A208E11E2BD62C98004E8605 /* PracticeUIKit01UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeUIKit01UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A208E12B2BD62E05004E8605 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		A208E12D2BD642C0004E8605 /* SecondAppMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondAppMainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				A208E0FB2BD62C96004E8605 /* AppDelegate.swift */,
 				A208E0FD2BD62C96004E8605 /* SceneDelegate.swift */,
+				A208E12D2BD642C0004E8605 /* SecondAppMainViewController.swift */,
 				A208E12B2BD62E05004E8605 /* MyViewController.swift */,
 				A208E1042BD62C97004E8605 /* Assets.xcassets */,
 				A208E1062BD62C97004E8605 /* LaunchScreen.storyboard */,
@@ -257,6 +260,7 @@
 				A208E0FC2BD62C96004E8605 /* AppDelegate.swift in Sources */,
 				A208E12C2BD62E05004E8605 /* MyViewController.swift in Sources */,
 				A208E0FE2BD62C96004E8605 /* SceneDelegate.swift in Sources */,
+				A208E12E2BD642C0004E8605 /* SecondAppMainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
