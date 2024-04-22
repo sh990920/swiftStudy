@@ -9,7 +9,13 @@ import UIKit
 
 class ScissorsRockPaperGameViewController: UIViewController {
     
-    let gameImageNameData = ["scissors", "rock", "paper"]
+    let gameImageNameData:[InputState] = [.scissors, .rock, .paper]
+    
+    enum InputState: String {
+        case scissors
+        case rock
+        case paper
+    }
     
     lazy var playStackView: UIStackView = {
         let stackView = UIStackView()
@@ -67,6 +73,27 @@ class ScissorsRockPaperGameViewController: UIViewController {
         button.layer.cornerRadius = 20
         return button
     }()
+    
+    lazy var gameResultLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "결과는?"
+        return label
+    }()
+    
+    lazy var playerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Player?"
+        return label
+    }()
+    
+    lazy var computerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "COM?"
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +107,18 @@ class ScissorsRockPaperGameViewController: UIViewController {
         
         playStackView.addArrangedSubview(computerGameImageView)
         playStackView.addArrangedSubview(myGameImageView)
+        
+        view.addSubview(gameResultLabel)
+        gameResultLabel.topAnchor.constraint(equalTo: playStackView.bottomAnchor, constant: 20).isActive = true
+        gameResultLabel.centerXAnchor.constraint(equalTo: playStackView.centerXAnchor).isActive = true
+        
+        view.addSubview(computerLabel)
+        computerLabel.bottomAnchor.constraint(equalTo: playStackView.topAnchor, constant: 40).isActive = true
+        computerLabel.leadingAnchor.constraint(equalTo: playStackView.leadingAnchor, constant: 50).isActive = true
+        
+        view.addSubview(playerLabel)
+        playerLabel.bottomAnchor.constraint(equalTo: playStackView.topAnchor, constant: 40).isActive = true
+        playerLabel.trailingAnchor.constraint(equalTo: playStackView.trailingAnchor, constant: -50).isActive = true
         
         view.addSubview(inputStackView)
         
@@ -100,18 +139,54 @@ class ScissorsRockPaperGameViewController: UIViewController {
     @objc func didTapChangeGameImageButton() {
         myGameImageView.image = UIImage(named: "scissors")
         let randomInput = gameImageNameData.randomElement()!
-        computerGameImageView.image = UIImage(named: randomInput)
+        computerGameImageView.image = UIImage(named: randomInput.rawValue)
+        gameResultLabel.text = fetchGameResult(myInput: .scissors, computerInput: randomInput)
     }
     
     @objc func didTapChangeGameImageButton2() {
         myGameImageView.image = UIImage(named: "rock")
         let randomInput = gameImageNameData.randomElement()!
-        computerGameImageView.image = UIImage(named: randomInput)
+        computerGameImageView.image = UIImage(named: randomInput.rawValue)
+        gameResultLabel.text = fetchGameResult(myInput: .rock, computerInput: randomInput)
     }
     
     @objc func didTapChangeGameImageButton3() {
         myGameImageView.image = UIImage(named: "paper")
         let randomInput = gameImageNameData.randomElement()!
-        computerGameImageView.image = UIImage(named: randomInput)
+        computerGameImageView.image = UIImage(named: randomInput.rawValue)
+        gameResultLabel.text = fetchGameResult(myInput: .paper, computerInput: randomInput)
+    }
+    
+    private func fetchGameResult(myInput: InputState, computerInput: InputState) -> String {
+        // 내가 낸 값, 컴퓨터의 값
+        switch myInput {
+        case .scissors:
+            switch computerInput{
+            case .scissors:
+                return "비김"
+            case .rock:
+                return "짐"
+            case .paper:
+                return "이김"
+            }
+        case .rock:
+            switch computerInput{
+            case .scissors:
+                return "이김"
+            case .rock:
+                return "비김"
+            case .paper:
+                return "짐"
+            }
+        case .paper:
+            switch computerInput{
+            case .scissors:
+                return "짐"
+            case .rock:
+                return "이김"
+            case .paper:
+                return "비김"
+            }
+        }
     }
 }
