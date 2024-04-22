@@ -10,6 +10,7 @@ import UIKit
 class UpAndDownViewController: UIViewController {
     
     private var randomNumber: Int = 0
+    private var playCount: Int = 0
 
     lazy var playStackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,6 +25,15 @@ class UpAndDownViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Guess what?"
+        label.textAlignment = .center
+        label.backgroundColor = .systemBackground
+        return label
+    }()
+    
+    lazy var playerCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0 회차"
         label.textAlignment = .center
         label.backgroundColor = .systemBackground
         return label
@@ -69,6 +79,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("1", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -77,6 +88,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("2", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -85,6 +97,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("3", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -93,6 +106,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("4", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -101,6 +115,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("5", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -109,6 +124,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("6", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -117,6 +133,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("7", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -125,6 +142,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("8", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -133,6 +151,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("9", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -141,6 +160,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("10", for: .normal)
+        button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         return button
     }()
@@ -149,6 +169,7 @@ class UpAndDownViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("랜덤 숫자생성", for: .normal)
+        button.setBackgroundColor(.lightGray, for: .normal)
         button.backgroundColor = .lightGray
         return button
     }()
@@ -165,6 +186,7 @@ class UpAndDownViewController: UIViewController {
         playStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         playStackView.addArrangedSubview(gamePlayLabel)
+        playStackView.addArrangedSubview(playerCountLabel)
         playStackView.addArrangedSubview(playerInputLabel)
         
         containerInputStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -226,99 +248,42 @@ class UpAndDownViewController: UIViewController {
     
     @objc private func didTapCreateRandomNumberButton() {
         randomNumber = Int.random(in: 1...10)
+        playCount = 0
+        playerCountLabel.text = "\(playCount) 회차"
         gamePlayLabel.text = "시작할 준비가 되었습니다!"
         
     }
-    @objc func didTapNumberButton(_ sender: UIButton) {
-        if sender.tag == 1 {
-            // compare to randomNumber
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 2 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 3 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 4 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 4 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 5 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 6 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 7 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 8 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 9 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
-        } else if sender.tag == 10 {
-            if sender.tag < randomNumber {
-                playerInputLabel.text = "UP"
-            } else if sender.tag > randomNumber {
-                playerInputLabel.text = "DOWN"
-            } else {
-                playerInputLabel.text = "정답입니다!"
-            }
+    
+    private func checkTheNumber(with sender: UIButton) {
+        if sender.tag < randomNumber {
+            playerInputLabel.text = "UP"
+        } else if sender.tag > randomNumber {
+            playerInputLabel.text = "DOWN"
+        } else {
+            playerInputLabel.text = "정답입니다!"
         }
+        playCount += 1
+        playerCountLabel.text = "\(playCount) 회차"
+    }
+    
+    @objc func didTapNumberButton(_ sender: UIButton) {
+        guard gamePlayLabel.text != "Guess what?" else { return }
+        checkTheNumber(with: sender)
+    }
+}
+
+// UIButton 확장
+extension UIButton {
+    // setBackgroundColor 메소드 추가
+    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
+        UIGraphicsBeginImageContext(CGSize(width: 1.0, height: 1.0))
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(x: 0.0, y:0.0, width: 1.0, height: 1.0))
+        
+        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        self.setBackgroundImage(backgroundImage, for: state)
     }
 }
