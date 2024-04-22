@@ -9,7 +9,6 @@ import UIKit
 
 class MyViewController: UIViewController {
 
-    // @IBOutlet weak var nameLabel: UILabel!
     
     lazy var myNameTextLabel: UILabel = {
         let label = UILabel()
@@ -18,6 +17,14 @@ class MyViewController: UIViewController {
         label.textAlignment = .center
         label.backgroundColor = .green
         return label
+    }()
+    
+    lazy var changeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("인사해주세요", for: .normal)
+        button.backgroundColor = .purple
+        return button
     }()
     
     override func viewDidLoad() {
@@ -31,14 +38,17 @@ class MyViewController: UIViewController {
         myNameTextLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         myNameTextLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
-        // 스토리 보드에서 설정한 이후 코드 실행이 되기 때문에
-        // 아래의 text가 나오게 된다.
-        // nameLabel.text = "리이오"
+        view.addSubview(changeButton)
+        changeButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        changeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        changeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        changeButton.topAnchor.constraint(equalTo: myNameTextLabel.bottomAnchor, constant: 200).isActive = true
         
+        changeButton.addTarget(self, action: #selector(didTapChangeNameButton), for: .touchUpInside)
     }
     
-
-//    @IBAction func didTabNameChangeButton(_ sender: Any) {
-//        // nameLabel.text = "반가워요!"
-//    }
+    @objc func didTapChangeNameButton() {
+        myNameTextLabel.text = "안녕하세요!"
+    }
+    
 }
