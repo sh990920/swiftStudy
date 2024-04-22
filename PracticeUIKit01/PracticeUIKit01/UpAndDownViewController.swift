@@ -8,6 +8,8 @@
 import UIKit
 
 class UpAndDownViewController: UIViewController {
+    
+    private var randomNumber: Int = 0
 
     lazy var playStackView: UIStackView = {
         let stackView = UIStackView()
@@ -185,11 +187,138 @@ class UpAndDownViewController: UIViewController {
         secondInputStackView.addArrangedSubview(nineButton)
         secondInputStackView.addArrangedSubview(tenButton)
         
+        oneButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        oneButton.tag = 1
+        
+        twoButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        twoButton.tag = 2
+        
+        threeButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        threeButton.tag = 3
+        
+        fourButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        fourButton.tag = 4
+        
+        fiveButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        fiveButton.tag = 5
+        
+        sixButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        sixButton.tag = 6
+        
+        sevenButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        sevenButton.tag = 7
+        
+        eightButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        eightButton.tag = 8
+        
+        nineButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        nineButton.tag = 9
+        
+        tenButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        tenButton.tag = 10
+        
         view.addSubview(createRandomNumberButton)
         createRandomNumberButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive =  true
         createRandomNumberButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         createRandomNumberButton.topAnchor.constraint(equalTo: containerInputStackView.bottomAnchor, constant: 100).isActive = true
-        
+        createRandomNumberButton.addTarget(self, action: #selector(didTapCreateRandomNumberButton), for: .touchUpInside)
     }
     
+    @objc private func didTapCreateRandomNumberButton() {
+        randomNumber = Int.random(in: 1...10)
+        gamePlayLabel.text = "시작할 준비가 되었습니다!"
+        
+    }
+    @objc func didTapNumberButton(_ sender: UIButton) {
+        if sender.tag == 1 {
+            // compare to randomNumber
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 2 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 3 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 4 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 4 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 5 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 6 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 7 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 8 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 9 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        } else if sender.tag == 10 {
+            if sender.tag < randomNumber {
+                playerInputLabel.text = "UP"
+            } else if sender.tag > randomNumber {
+                playerInputLabel.text = "DOWN"
+            } else {
+                playerInputLabel.text = "정답입니다!"
+            }
+        }
+    }
 }
