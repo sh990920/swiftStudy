@@ -188,5 +188,6 @@ class ScissorsRockPaperGameViewController: UIViewController {
                 return "비김"
             }
         }
+        return "승리"
     }
 }
