@@ -17,6 +17,7 @@
 		A208E12C2BD62E05004E8605 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E12B2BD62E05004E8605 /* MyViewController.swift */; };
 		A208E12E2BD642C0004E8605 /* SecondAppMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E12D2BD642C0004E8605 /* SecondAppMainViewController.swift */; };
 		A208E1302BD65068004E8605 /* ScissorsRockPaperGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E12F2BD65068004E8605 /* ScissorsRockPaperGameViewController.swift */; };
+		A208E1322BD69BFC004E8605 /* UpAndDownViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A208E1312BD69BFC004E8605 /* UpAndDownViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		A208E12B2BD62E05004E8605 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		A208E12D2BD642C0004E8605 /* SecondAppMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondAppMainViewController.swift; sourceTree = "<group>"; };
 		A208E12F2BD65068004E8605 /* ScissorsRockPaperGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScissorsRockPaperGameViewController.swift; sourceTree = "<group>"; };
+		A208E1312BD69BFC004E8605 /* UpAndDownViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpAndDownViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				A208E0FB2BD62C96004E8605 /* AppDelegate.swift */,
 				A208E0FD2BD62C96004E8605 /* SceneDelegate.swift */,
 				A208E12F2BD65068004E8605 /* ScissorsRockPaperGameViewController.swift */,
+				A208E1312BD69BFC004E8605 /* UpAndDownViewController.swift */,
 				A208E12D2BD642C0004E8605 /* SecondAppMainViewController.swift */,
 				A208E12B2BD62E05004E8605 /* MyViewController.swift */,
 				A208E1042BD62C97004E8605 /* Assets.xcassets */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A208E0FC2BD62C96004E8605 /* AppDelegate.swift in Sources */,
+				A208E1322BD69BFC004E8605 /* UpAndDownViewController.swift in Sources */,
 				A208E12C2BD62E05004E8605 /* MyViewController.swift in Sources */,
 				A208E0FE2BD62C96004E8605 /* SceneDelegate.swift in Sources */,
 				A208E12E2BD642C0004E8605 /* SecondAppMainViewController.swift in Sources */,
