@@ -17,7 +17,9 @@ public class Lotto {
     // 맞춘 갯수 저장 변수
     var correctCount: Int = 0
     // 보너스 번호 맞췄는지
-    var bounsCorrect: Bool = false
+    var bonusCorrect: Bool = false
+    // 보너스 번호
+    var bonusCorrectNumber: Int = 0
     
     func lottoSetting() {
         while(computerNumberList.count <= 6){
@@ -59,6 +61,44 @@ public class Lotto {
         }
     }
     
+    func equalsNumber() {
+        for i in 0..<computerNumberList.count {
+            var num = computerNumberList[i]
+            if userInputNumberList.contains(num) {
+                if i == 6 {
+                    // 보너스 번호
+                    bonusCorrect = true
+                    bonusCorrectNumber = num
+                } else {
+                    correctCount += 1
+                    correctNumberList.append(num)
+                }
+                continue
+            }
+        }
+    }
+    
+    func ranking() -> String {
+        var str = ""
+        switch(correctCount) {
+        case 6:
+            str = "1등 입니다!!"
+        case 5:
+            if bonusCorrect{
+                str = "2등 입니다."
+            } else {
+                str = "3등 입니다."
+            }
+        case 4:
+            str = "4등 입니다."
+        case 3:
+            str = "5등 입니다."
+        default:
+            str = "낙첨...ㅠ"
+        }
+        return str
+    }
+    
     func userInputCancel() -> String {
         if userInputNumberList.count == 0 {
             return "더이상 지울 수 없습니다."
@@ -77,6 +117,34 @@ public class Lotto {
         return str
     }
     
+    func userInputReset() {
+        userInputNumberList.removeAll()
+    }
+    
+    func userInputComplete() -> String {
+        var str = ""
+        if userInputNumberList.count < 6 {
+            // 맞추는거 진행 불가
+            str = "번호를 전부 입력하고 진행해주세요!"
+            return str
+        } else {
+            equalsNumber()
+            str = "["
+            for i in 0..<correctNumberList.count {
+                if i == correctNumberList.count - 1 {
+                    str += String(correctNumberList[i])
+                }else {
+                    str += String(correctNumberList[i]) + ", "
+                }
+            }
+            if bonusCorrect {
+                str += ", 보너스 번호 : "
+                str += String(bonusCorrectNumber)
+            }
+            str += "]"
+            return str
+        }
+    }
     
     
 }

@@ -90,7 +90,7 @@ class GameViewController: UIViewController {
                 let button = createResetButton()
                 stackView.addArrangedSubview(button)
             case 48:
-                let button = createExitButton()
+                let button = createCompleteButton()
                 stackView.addArrangedSubview(button)
             default:
                 let button = createNumberButton(i)
@@ -131,10 +131,10 @@ class GameViewController: UIViewController {
         return button
     }
 
-    func createExitButton() -> UIButton {
+    func createCompleteButton() -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("종료", for: .normal)
+        button.setTitle("완료", for: .normal)
         button.setBackgroundColor(.orange, for: .normal)
         button.backgroundColor = .orange
         button.addTarget(self, action: #selector(didTapOtherButton), for: .touchUpInside)
@@ -162,11 +162,19 @@ class GameViewController: UIViewController {
                     inputNumberLabel.text = "입력한 번호 : " + str
                 }
             case "리셋":
-                var str = lotto.userInputCancel()
-                inputNumberLabel.text = "입력한 번호 : " + str
-            case "종료":
-                var str = lotto.userInputCancel()
-                inputNumberLabel.text = "입력한 번호 : " + str
+                lotto.userInputReset()
+                var str = "입력한 번호 : []"
+                inputNumberLabel.text = str
+            case "완료":
+                var str2 = lotto.userInputComplete()
+                if str2 != "번호를 전부 입력하고 진행해주세요!" {
+                    var str = lotto.ranking()
+                    titleLabel.text = str
+                    inputNumberLabel.text = "맞춘 번호 : " + str2
+                } else {
+                    inputNumberLabel.text = str2
+                }
+                
             default:
                 return
             }
