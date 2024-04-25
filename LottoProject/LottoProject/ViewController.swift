@@ -11,16 +11,16 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func ChangeVIewButton(_ sender: Any) {
         print("클릭")
-        performSegue(withIdentifier: "viewChange", sender: self)
-    }
-    
-    @IBAction func unwindToMainViewController(_ segue: UIStoryboardSegue) {
-        // 아무 추가 동작이 필요하지 않습니다.
+        guard let gameViewController = self.storyboard?.instantiateViewController(withIdentifier: "gameView") as? GameViewController else { return }
+        // 화면 전환 애니메이션 설정
+        gameViewController.modalTransitionStyle = .coverVertical
+        // 전환된 화면이 보여지는 방법 설정 (fullScreen)
+        gameViewController.modalPresentationStyle = .fullScreen
+        self.present(gameViewController, animated: true, completion: nil)
     }
     
 }

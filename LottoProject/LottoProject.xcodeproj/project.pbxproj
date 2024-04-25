@@ -14,7 +14,7 @@
 		A216D35A2BDA33B400DE05FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A216D3592BDA33B400DE05FB /* Assets.xcassets */; };
 		A216D35D2BDA33B400DE05FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A216D35C2BDA33B400DE05FB /* Base */; };
 		A216D3652BDA363C00DE05FB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216D3642BDA363C00DE05FB /* GameViewController.swift */; };
-		A216D3672BDA3E3300DE05FB /* CustomChangeSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216D3662BDA3E3300DE05FB /* CustomChangeSegue.swift */; };
+		A216D36A2BDA734E00DE05FB /* Lotto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216D3692BDA734E00DE05FB /* Lotto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		A216D35C2BDA33B400DE05FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A216D35E2BDA33B400DE05FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A216D3642BDA363C00DE05FB /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		A216D3662BDA3E3300DE05FB /* CustomChangeSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChangeSegue.swift; sourceTree = "<group>"; };
+		A216D3692BDA734E00DE05FB /* Lotto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lotto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +63,12 @@
 				A216D3502BDA33B300DE05FB /* AppDelegate.swift */,
 				A216D3522BDA33B300DE05FB /* SceneDelegate.swift */,
 				A216D3642BDA363C00DE05FB /* GameViewController.swift */,
-				A216D3662BDA3E3300DE05FB /* CustomChangeSegue.swift */,
 				A216D3542BDA33B300DE05FB /* ViewController.swift */,
 				A216D3562BDA33B300DE05FB /* Main.storyboard */,
 				A216D3592BDA33B400DE05FB /* Assets.xcassets */,
 				A216D35B2BDA33B400DE05FB /* LaunchScreen.storyboard */,
 				A216D35E2BDA33B400DE05FB /* Info.plist */,
+				A216D3692BDA734E00DE05FB /* Lotto.swift */,
 			);
 			path = LottoProject;
 			sourceTree = "<group>";
@@ -145,8 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A216D3652BDA363C00DE05FB /* GameViewController.swift in Sources */,
+				A216D36A2BDA734E00DE05FB /* Lotto.swift in Sources */,
 				A216D3552BDA33B300DE05FB /* ViewController.swift in Sources */,
-				A216D3672BDA3E3300DE05FB /* CustomChangeSegue.swift in Sources */,
 				A216D3512BDA33B300DE05FB /* AppDelegate.swift in Sources */,
 				A216D3532BDA33B300DE05FB /* SceneDelegate.swift in Sources */,
 			);
