@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         bestFriendNameLabel.text = friend.bestFriendName
         nextFriendNameLabel.text = friend.nextFriendName
         // friend.myBrother
+        
     }
     
 }
