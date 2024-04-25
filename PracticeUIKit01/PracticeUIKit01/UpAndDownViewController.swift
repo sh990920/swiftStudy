@@ -239,6 +239,7 @@ class UpAndDownViewController: UIViewController {
         tenButton.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
         tenButton.tag = 10
         
+        
         view.addSubview(createRandomNumberButton)
         createRandomNumberButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive =  true
         createRandomNumberButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
