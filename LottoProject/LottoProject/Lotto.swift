@@ -21,6 +21,7 @@ public class Lotto {
     // 보너스 번호
     var bonusCorrectNumber: Int = 0
     
+    // 로또 번호 세팅
     func lottoSetting() {
         while(computerNumberList.count <= 6){
             let num = Int.random(in: 1...45)
@@ -31,6 +32,7 @@ public class Lotto {
         print(computerNumberList)
     }
     
+    // 숫자를 입력했을 때 작동할 메서드
     func userInput(_ num: Int) -> String {
         if userInputNumberList.count == 6 {
             // 숫자 입력 끝
@@ -61,9 +63,10 @@ public class Lotto {
         }
     }
     
+    // 숫자 비교를 진행할 메서드
     func equalsNumber() {
         for i in 0..<computerNumberList.count {
-            var num = computerNumberList[i]
+            let num = computerNumberList[i]
             if userInputNumberList.contains(num) {
                 if i == 6 {
                     // 보너스 번호
@@ -78,6 +81,7 @@ public class Lotto {
         }
     }
     
+    // 순위를 측정하는 메서드
     func ranking() -> String {
         var str = ""
         switch(correctCount) {
@@ -99,6 +103,7 @@ public class Lotto {
         return str
     }
     
+    // 숫자를 하나 제거하는 메서드
     func userInputCancel() -> String {
         if userInputNumberList.count == 0 {
             return "더이상 지울 수 없습니다."
@@ -117,10 +122,12 @@ public class Lotto {
         return str
     }
     
+    // 숫자를 전부 제거하는 메서드
     func userInputReset() {
         userInputNumberList.removeAll()
     }
     
+    // 입력이 완료되었을 때 작동할 메서드
     func userInputComplete() -> String {
         var str = ""
         if userInputNumberList.count < 6 {
@@ -146,5 +153,28 @@ public class Lotto {
         }
     }
     
+    // 게임 초기화 메서드
+    func gameInitialization() {
+        computerNumberList.removeAll()
+        userInputNumberList.removeAll()
+        correctNumberList.removeAll()
+        correctCount = 0
+        bonusCorrect = false
+        bonusCorrectNumber = 0
+    }
+    
+    // 사용자 숫자들을 보여줄 메소드
+    func showUserNumbers() -> String {
+        var str: String = "["
+        for i in 0..<userInputNumberList.count {
+            if i == userInputNumberList.count - 1 {
+                str += String(userInputNumberList[i])
+            }else {
+                str += String(userInputNumberList[i]) + ", "
+            }
+        }
+        str += "]"
+        return str
+    }
     
 }

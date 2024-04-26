@@ -13,6 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
+    // 다른 페이지로 이동할 메서드
     @IBAction func ChangeVIewButton(_ sender: Any) {
         print("클릭")
         guard let gameViewController = self.storyboard?.instantiateViewController(withIdentifier: "gameView") as? GameViewController else { return }

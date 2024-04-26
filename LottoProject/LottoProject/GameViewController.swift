@@ -9,16 +9,24 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    // 로또 객체 생성
     let lotto = Lotto()
     
+    // 게임이 실행중인지 확인할 변수
+    var isPlay:Bool = false
+    
+    // stackView 갯수를 확인할 변수
+    var count: Int = 1
+    
+    // 뒤로가기 버튼
     @IBOutlet weak var backButton: UIButton!
-    
+    // 타이틀 레이블
     @IBOutlet weak var titleLabel: UILabel!
-    
+    // 시작 버튼
     @IBOutlet weak var startButton: UIButton!
-    
+    // 입력한 숫자를 보여줄 레이블
     @IBOutlet weak var inputNumberLabel: UILabel!
-    
+    // 숫자 및 기능 버튼을 정렬하는 StackView 를 정렬할 StackView
     lazy var stackViewSortStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -27,21 +35,10 @@ class GameViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    lazy var numberInputStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    
-    
+
+    // 화면이 로딩 되었을 때 행동할 함수
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
         titleLabel.text = "게임 시작 버튼을 눌러주세요"
         inputNumberLabel.layer.isHidden = true
         view.addSubview(stackViewSortStackView)
@@ -51,27 +48,105 @@ class GameViewController: UIViewController {
         stackViewSortStackView.topAnchor.constraint(equalTo: inputNumberLabel.bottomAnchor, constant: 10).isActive = true
         stackViewSortStackView.centerXAnchor.constraint(equalTo: inputNumberLabel.centerXAnchor).isActive = true
         stackViewSortStackView.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -10).isActive = true
-        stackViewSortStackView.backgroundColor = .blue
         
-        for _ in 0..<8 {
+        for _ in 0 ..< 8 {
             let numberInputStackView = createNumberInputStackView()
             stackViewSortStackView.addArrangedSubview(numberInputStackView)
         }
+        stackViewSortStackView.isHidden = true
     }
     
+    // 게임 시작 함수
     @IBAction func gameStart(_ sender: Any) {
-        titleLabel.text = "로또 번호를 입력하세요"
-        inputNumberLabel.layer.isHidden = false
-        backButton.isHidden = true
-        lotto.lottoSetting()
+        if !isPlay {
+            titleLabel.text = "로또 번호를 입력하세요"
+            stackViewSortStackView.isHidden = false
+            inputNumberLabel.layer.isHidden = false
+            backButton.isHidden = true
+            inputNumberLabel.text = "입력한 번호 : []"
+            startButton.setTitle("게임 중지", for: .normal)
+            isPlay = true
+            lotto.lottoSetting()
+        } else {
+            titleLabel.text = "게임 시작 버튼을 눌러주세요"
+            stackViewSortStackView.isHidden = true
+            inputNumberLabel.layer.isHidden = true
+            inputNumberLabel.text = "입력한 번호 : []"
+            backButton.isHidden = false
+            gameOver()
+        }
+        
     }
     
+    // 뒤로가기 버튼 함수
     @IBAction func goToMain(_ sender: Any) {
         print("뒤로가기 클릭")
         self.presentingViewController?.dismiss(animated: true)
     }
-    var count: Int = 1
+    
+    // 게임 종료 함수
+    func gameOver() {
+        stackViewSortStackView.isHidden = true
+        backButton.isHidden = false
+        isPlay = false
+        startButton.setTitle("게임 시작!", for: .normal)
+        lotto.gameInitialization()
+    }
+    
+    // 숫자 버튼을 눌렀을 때 작동할 함수
+    @objc func didTapNumberButton(_ sender: UIButton) {
+        let str = lotto.userInput(sender.tag)
+        if str == "더이상 입력할 수 없습니다." {
+            inputNumberLabel.text = str
+            runAfterDelay(1.5) { [weak self] in
+                guard let self = self else { return } // self가 존재하는지 확인
+                self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
+            }
+        } else {
+            inputNumberLabel.text = "입력한 번호 : " + str
+        }
+    }
+    
+    // 나머지 버튼을 눌렀을 때 작동할 함수
+    @objc func didTapOtherButton(_ sender: UIButton) {
+        if let buttonText = sender.titleLabel?.text {
+            switch(buttonText) {
+            case "취소":
+                let str = lotto.userInputCancel()
+                if str == "더이상 지울 수 없습니다." {
+                    inputNumberLabel.text = str
+                    runAfterDelay(1.5) { [weak self] in
+                        guard let self = self else { return } // self가 존재하는지 확인
+                        self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
+                    }
+                } else {
+                    inputNumberLabel.text = "입력한 번호 : " + str
+                }
+            case "리셋":
+                lotto.userInputReset()
+                let str = "입력한 번호 : []"
+                inputNumberLabel.text = str
+            case "완료":
+                let str2 = lotto.userInputComplete()
+                if str2 != "번호를 전부 입력하고 진행해주세요!" {
+                    let str = lotto.ranking()
+                    titleLabel.text = str
+                    inputNumberLabel.text = "맞춘 번호 : " + str2
+                    gameOver()
+                } else {
+                    inputNumberLabel.text = str2
+                    runAfterDelay(1.5) { [weak self] in
+                        guard let self = self else { return } // self가 존재하는지 확인
+                        self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
+                    }
+                }
+            default:
+                return
+            }
+        }
+    }
 
+    // 버튼을 가지고 있을 StackView 생성 함수
     func createNumberInputStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -79,7 +154,6 @@ class GameViewController: UIViewController {
         // 내부 객체간의 간격
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .red
         for i in count...count + 5 {
             count += 1
             switch(i) {
@@ -99,91 +173,55 @@ class GameViewController: UIViewController {
         }
         return stackView
     }
-
+    
+    // 숫자 버튼 생성 함수
     func createNumberButton(_ num: Int) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("\(num)", for: .normal)
-        button.setBackgroundColor(.orange, for: .normal)
-        button.backgroundColor = .orange
+        button.setBackgroundColor(.lightGray, for: .normal)
         button.tag = num
         button.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
         return button
     }
-
+    
+    // 리셋 버튼 생성 함수
     func createResetButton() -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("리셋", for: .normal)
-        button.setBackgroundColor(.orange, for: .normal)
-        button.backgroundColor = .orange
+        button.setBackgroundColor(.lightGray, for: .normal)
         button.addTarget(self, action: #selector(didTapOtherButton), for: .touchUpInside)
         return button
     }
 
+    // 취소 버튼 생성 함수
     func createCancelButton() -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("취소", for: .normal)
-        button.setBackgroundColor(.orange, for: .normal)
-        button.backgroundColor = .orange
+        button.setBackgroundColor(.lightGray, for: .normal)
         button.addTarget(self, action: #selector(didTapOtherButton), for: .touchUpInside)
         return button
     }
-
+    
+    // 완료 버튼 생성 함수
     func createCompleteButton() -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("완료", for: .normal)
-        button.setBackgroundColor(.orange, for: .normal)
-        button.backgroundColor = .orange
+        button.setBackgroundColor(.lightGray, for: .normal)
         button.addTarget(self, action: #selector(didTapOtherButton), for: .touchUpInside)
         return button
     }
-
     
-    @objc func didTapNumberButton(_ sender: UIButton) {
-        let str = lotto.userInput(sender.tag)
-        if str == "더이상 입력할 수 없습니다." {
-            inputNumberLabel.text = str
-        } else {
-            inputNumberLabel.text = "입력한 번호 : " + str
-        }
+    // 디스패치 큐를 사용해 텍스트 수정하기
+    func runAfterDelay(_ delay: TimeInterval, _ block: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: block)
     }
     
-    @objc func didTapOtherButton(_ sender: UIButton) {
-        if let buttonText = sender.titleLabel?.text {
-            switch(buttonText) {
-            case "취소":
-                var str = lotto.userInputCancel()
-                if str == "더이상 지울 수 없습니다." {
-                    inputNumberLabel.text = str
-                } else {
-                    inputNumberLabel.text = "입력한 번호 : " + str
-                }
-            case "리셋":
-                lotto.userInputReset()
-                var str = "입력한 번호 : []"
-                inputNumberLabel.text = str
-            case "완료":
-                var str2 = lotto.userInputComplete()
-                if str2 != "번호를 전부 입력하고 진행해주세요!" {
-                    var str = lotto.ranking()
-                    titleLabel.text = str
-                    inputNumberLabel.text = "맞춘 번호 : " + str2
-                } else {
-                    inputNumberLabel.text = str2
-                }
-                
-            default:
-                return
-            }
-        }
-    }
+    
 }
-
-
-
 
 // UIButton 확장
 extension UIButton {
