@@ -98,10 +98,7 @@ class GameViewController: UIViewController {
         let str = lotto.userInput(sender.tag)
         if str == "더이상 입력할 수 없습니다." {
             inputNumberLabel.text = str
-            runAfterDelay(1.5) { [weak self] in
-                guard let self = self else { return } // self가 존재하는지 확인
-                self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
-            }
+            textChange()
         } else {
             inputNumberLabel.text = "입력한 번호 : " + str
         }
@@ -112,37 +109,46 @@ class GameViewController: UIViewController {
         if let buttonText = sender.titleLabel?.text {
             switch(buttonText) {
             case "취소":
-                let str = lotto.userInputCancel()
-                if str == "더이상 지울 수 없습니다." {
-                    inputNumberLabel.text = str
-                    runAfterDelay(1.5) { [weak self] in
-                        guard let self = self else { return } // self가 존재하는지 확인
-                        self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
-                    }
-                } else {
-                    inputNumberLabel.text = "입력한 번호 : " + str
-                }
+                cancel()
             case "리셋":
-                lotto.userInputReset()
-                let str = "입력한 번호 : []"
-                inputNumberLabel.text = str
+                reset()
             case "완료":
-                let str2 = lotto.userInputComplete()
-                if str2 != "번호를 전부 입력하고 진행해주세요!" {
-                    let str = lotto.ranking()
-                    titleLabel.text = str
-                    inputNumberLabel.text = "맞춘 번호 : " + str2
-                    gameOver()
-                } else {
-                    inputNumberLabel.text = str2
-                    runAfterDelay(1.5) { [weak self] in
-                        guard let self = self else { return } // self가 존재하는지 확인
-                        self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
-                    }
-                }
+                complete()
             default:
                 return
             }
+        }
+    }
+    
+    // 완료 기능
+    func complete() {
+        let str2 = lotto.userInputComplete()
+        if str2 != "번호를 전부 입력하고 진행해주세요!" {
+            let str = lotto.ranking()
+            titleLabel.text = str
+            inputNumberLabel.text = "맞춘 번호 : " + str2
+            gameOver()
+        } else {
+            inputNumberLabel.text = str2
+            textChange()
+        }
+    }
+    
+    // 리셋 기능
+    func reset() {
+        lotto.userInputReset()
+        let str = "입력한 번호 : []"
+        inputNumberLabel.text = str
+    }
+    
+    // 취소 기능
+    func cancel() {
+        let str = lotto.userInputCancel()
+        if str == "더이상 지울 수 없습니다." {
+            inputNumberLabel.text = str
+            textChange()
+        } else {
+            inputNumberLabel.text = "입력한 번호 : " + str
         }
     }
 
@@ -220,6 +226,13 @@ class GameViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: block)
     }
     
+    // 텍스트 수정 메서드
+    func textChange() {
+        runAfterDelay(1.5) { [weak self] in
+            guard let self = self else { return } // self가 존재하는지 확인
+            self.inputNumberLabel.text = "입력한 번호 : " + lotto.showUserNumbers()
+        }
+    }
     
 }
 
