@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var showNumberLabel: UILabel!
     
+    // 버튼들을 가지고 있는 StackView 를 정렬하기 위한 StackView
     lazy var stackViewSortStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -20,36 +21,40 @@ class ViewController: UIViewController {
         return stackView
     }()
     
+    // 버튼들을 정렬할 StackView
     lazy var firstStackView: UIStackView = createStackView()
     lazy var secondStackView: UIStackView = createStackView()
     lazy var thirdStackView: UIStackView = createStackView()
     lazy var fourthStackView: UIStackView = createStackView()
     lazy var fifthStackView: UIStackView = createStackView()
     
+    // 마지막 정렬을 위한 StackView
     lazy var sortStackViewFifthStackView: UIStackView = createStackView()
     
-    lazy var zeroButton: UIButton = createButton(0)
-    lazy var oneButton: UIButton = createButton(1)
-    lazy var twoButton: UIButton = createButton(2)
-    lazy var threeButton: UIButton = createButton(3)
-    lazy var fourButton: UIButton = createButton(4)
-    lazy var fiveButton: UIButton = createButton(5)
-    lazy var sixButton: UIButton = createButton(6)
-    lazy var sevenButton: UIButton = createButton(7)
-    lazy var eightButton: UIButton = createButton(8)
-    lazy var nineButton: UIButton = createButton(9)
+    // 숫자 버튼
+    lazy var zeroButton: UIButton = createNumberButton(0)
+    lazy var oneButton: UIButton = createNumberButton(1)
+    lazy var twoButton: UIButton = createNumberButton(2)
+    lazy var threeButton: UIButton = createNumberButton(3)
+    lazy var fourButton: UIButton = createNumberButton(4)
+    lazy var fiveButton: UIButton = createNumberButton(5)
+    lazy var sixButton: UIButton = createNumberButton(6)
+    lazy var sevenButton: UIButton = createNumberButton(7)
+    lazy var eightButton: UIButton = createNumberButton(8)
+    lazy var nineButton: UIButton = createNumberButton(9)
     
-    lazy var plusButton: UIButton = createButton("+")
-    lazy var minusButton: UIButton = createButton("-")
-    lazy var multiplicationButton: UIButton = createButton("×")
-    lazy var divisionButton: UIButton = createButton("÷")
-    lazy var cleanButton: UIButton = createButton("C")
-    lazy var percentageButton: UIButton = createButton("%")
-    lazy var resultButton: UIButton = createButton("=")
-    lazy var conversionButton: UIButton = createButton("±")
-    
-    lazy var pointButton: UIButton = createButton(".")
+    // 기능 버튼
+    lazy var plusButton: UIButton = createPlusButton("+")
+    lazy var minusButton: UIButton = createMinusButton("−")
+    lazy var multiplicationButton: UIButton = createMultiplicationButton("×")
+    lazy var divisionButton: UIButton = createDivisionButton("÷")
+    lazy var cleanButton: UIButton = createCleanButton("C")
+    lazy var percentageButton: UIButton = createPercentageButton("%")
+    lazy var resultButton: UIButton = createResultButton("=")
+    lazy var conversionButton: UIButton = createConversionButton("±")
+    lazy var pointButton: UIButton = createPointButton(".")
 
+    // 화면 로딩 시 진행할 메서드
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,8 +100,7 @@ class ViewController: UIViewController {
         
     }
 
-    
-    
+    // StackView 생성 메서드
     func createStackView() -> UIStackView {
         let stackView  = UIStackView()
         stackView.axis = .horizontal
@@ -106,28 +110,17 @@ class ViewController: UIViewController {
         return stackView
     }
     
-    func createButton(_ text: Any) -> UIButton {
+    // 숫자버튼 생성 메서드
+    func createNumberButton(_ text: Int) -> UIButton {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("\(text)", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
-        button.setBackgroundColor(.orange, for: .normal)
-        if let num = text as? Int {
-            button.tag = num
-            button.setBackgroundColor(.lightGray, for: .normal)
-        }
-        
-        if let num = text as? Int{
-            if num == 0 {
-                DispatchQueue.main.async {
-                    button.layer.cornerRadius = button.bounds.width / 5.0
-                    button.layer.masksToBounds = true
-                }
-            } else {
-                DispatchQueue.main.async {
-                    button.layer.cornerRadius = button.bounds.width / 2.0
-                    button.layer.masksToBounds = true
-                }
+        button.setBackgroundColor(.gray, for: .normal)
+        button.tag = text
+        if text == 0 {
+            DispatchQueue.main.async {
+                button.layer.cornerRadius = button.bounds.width / 5.0
+                button.layer.masksToBounds = true
             }
         } else {
             DispatchQueue.main.async {
@@ -135,10 +128,199 @@ class ViewController: UIViewController {
                 button.layer.masksToBounds = true
             }
         }
-        
-        //button.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapNumberButton), for: .touchUpInside)
         return button
     }
+    
+    // 더하기 버튼 생성 메서드
+    func createPlusButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
+        button.setBackgroundColor(.orange, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 빼기 버튼 생성 메서드
+    func createMinusButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
+        button.setBackgroundColor(.orange, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapMinusButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 곱하기 버튼 생성 메서드
+    func createMultiplicationButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
+        button.setBackgroundColor(.orange, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapMultiplicationButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 나누기 버튼 생성 메서드
+    func createDivisionButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
+        button.setBackgroundColor(.orange, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapDivisionButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 초기화 버튼 생성 메서드
+    func createCleanButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
+        button.setBackgroundColor(.lightGray, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapCleanButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 퍼센트 버튼 생성 메서드
+    func createPercentageButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
+        button.setBackgroundColor(.lightGray, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapPercentageButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 결과 확인 버튼 생성 메서드
+    func createResultButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
+        button.setBackgroundColor(.orange, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapResultButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 부호전환 버튼 생성 메서드
+    func createConversionButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 50)
+        button.setBackgroundColor(.lightGray, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapConversionButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 소수점 버튼 생성 메서드
+    func createPointButton(_ text: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle("\(text)", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
+        button.setBackgroundColor(.gray, for: .normal)
+        DispatchQueue.main.async {
+            button.layer.cornerRadius = button.bounds.width / 2.0
+            button.layer.masksToBounds = true
+        }
+        button.addTarget(self, action: #selector(didTapPointButton), for: .touchUpInside)
+        return button
+    }
+    
+    // 숫자 버튼 클릭 메서드
+    @objc func didTapNumberButton(_ sender: UIButton) {
+        print("숫자 버튼 클릭")
+        if let text = showNumberLabel.text {
+            if text == "0" {
+                showNumberLabel.text = String(sender.tag)
+            } else {
+                showNumberLabel.text = text + String(sender.tag)
+            }
+        } else {
+            showNumberLabel.text = String(sender.tag)
+        }
+    }
+    // 더하기 버튼 클릭 메서드
+    @objc func didTapPlusButton(_ sender: UIButton) {
+        print("더하기 버튼 클릭")
+    }
+    // 빼기 버튼 클릭 메서드
+    @objc func didTapMinusButton(_ sender: UIButton) {
+        print("빼기 버튼 클릭")
+    }
+    // 곱하기 버튼 클릭 메서드
+    @objc func didTapMultiplicationButton(_ sender: UIButton) {
+        print("곱하기 버튼 클릭")
+    }
+    // 나누기 버튼 클릭 메서드
+    @objc func didTapDivisionButton(_ sender: UIButton) {
+        print("나누기 버튼 클릭")
+    }
+    // 초기화 버튼 클릭 메서드
+    @objc func didTapCleanButton(_ sender: UIButton) {
+        showNumberLabel.text = "0"
+        print("초기화 버튼 클릭")
+    }
+    // 퍼센트 버튼 클릭 메서드
+    @objc func didTapPercentageButton(_ sender: UIButton) {
+        print("퍼센트 버튼 클릭")
+    }
+    // 결과 버튼 클릭 메서드
+    @objc func didTapResultButton(_ sender: UIButton) {
+        print("결과 버튼 클릭")
+    }
+    // 부호변환 버튼 클릭 메서드
+    @objc func didTapConversionButton(_ sender: UIButton) {
+        if let text = showNumberLabel.text {
+            if text.contains("-") {
+                var txt = text.suffix(text.count - 1)
+                showNumberLabel.text = String(txt)
+            } else {
+                showNumberLabel.text = "-" + text
+            }
+            
+        }
+        print("부호변환 버튼 클릭")
+    }
+    // 소수점 버튼 클릭 메서드
+    @objc func didTapPointButton(_ sender: UIButton) {
+        if let text = showNumberLabel.text {
+            showNumberLabel.text = text + "."
+        }
+        print("소수점 버튼 클릭")
+    }
+    
 
 }
 
