@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var showNumberLabel: UILabel!
     
+    @IBOutlet weak var showCalculation: UILabel!
+    
     // 버튼들을 가지고 있는 StackView 를 정렬하기 위한 StackView
     lazy var stackViewSortStackView: UIStackView = {
         let stackView = UIStackView()
@@ -261,66 +263,114 @@ class ViewController: UIViewController {
     // 숫자 버튼 클릭 메서드
     @objc func didTapNumberButton(_ sender: UIButton) {
         print("숫자 버튼 클릭")
-        if let text = showNumberLabel.text {
+        if let text = showCalculation.text {
             if text == "0" {
-                showNumberLabel.text = String(sender.tag)
+                showCalculation.text = String(sender.tag)
             } else {
-                showNumberLabel.text = text + String(sender.tag)
+                showCalculation.text = text + String(sender.tag)
             }
         } else {
-            showNumberLabel.text = String(sender.tag)
+            showCalculation.text = String(sender.tag)
         }
     }
     // 더하기 버튼 클릭 메서드
     @objc func didTapPlusButton(_ sender: UIButton) {
         print("더하기 버튼 클릭")
+        if let text = showCalculation.text {
+            showCalculation.text = text + " + "
+        }
     }
     // 빼기 버튼 클릭 메서드
     @objc func didTapMinusButton(_ sender: UIButton) {
         print("빼기 버튼 클릭")
+        if let text = showCalculation.text {
+            showCalculation.text = text + " - "
+        }
     }
     // 곱하기 버튼 클릭 메서드
     @objc func didTapMultiplicationButton(_ sender: UIButton) {
         print("곱하기 버튼 클릭")
+        if let text = showCalculation.text {
+            showCalculation.text = text + " * "
+        }
     }
     // 나누기 버튼 클릭 메서드
     @objc func didTapDivisionButton(_ sender: UIButton) {
         print("나누기 버튼 클릭")
+        if let text = showCalculation.text {
+            showCalculation.text = text + " / "
+        }
     }
     // 초기화 버튼 클릭 메서드
     @objc func didTapCleanButton(_ sender: UIButton) {
+        showCalculation.text = "0"
         showNumberLabel.text = "0"
         print("초기화 버튼 클릭")
     }
     // 퍼센트 버튼 클릭 메서드
     @objc func didTapPercentageButton(_ sender: UIButton) {
         print("퍼센트 버튼 클릭")
+        if let numStr = showNumberLabel.text {
+            if numStr != "0" {
+                let str = numStr + "/ 100.0"
+                let num = evaluateMathExpression(str)
+                if num?.truncatingRemainder(dividingBy: 1) == 0 {
+                    showNumberLabel.text = String(Int(num!))
+                    showCalculation.text = String(Int(num!))
+                } else {
+                    showNumberLabel.text = String(format: "%.2f", num!)
+                    showCalculation.text = String(format: "%.2f", num!)
+                }
+            }
+        }
     }
     // 결과 버튼 클릭 메서드
     @objc func didTapResultButton(_ sender: UIButton) {
         print("결과 버튼 클릭")
+        if let text = showCalculation.text {
+            var num: Double? = nil
+            if !text.contains(".") {
+                num = evaluateMathExpression(text + ".0")
+            } else {
+                num = evaluateMathExpression(text)
+            }
+            if num?.truncatingRemainder(dividingBy: 1) == 0 {
+                showNumberLabel.text = String(Int(num!))
+                showCalculation.text = String(Int(num!))
+            } else {
+                showNumberLabel.text = String(format: "%.2f", num!)
+                showCalculation.text = String(format: "%.2f", num!)
+            }
+        }
     }
     // 부호변환 버튼 클릭 메서드
     @objc func didTapConversionButton(_ sender: UIButton) {
-        if let text = showNumberLabel.text {
+        if let text = showCalculation.text {
             if text.contains("-") {
-                var txt = text.suffix(text.count - 1)
-                showNumberLabel.text = String(txt)
+                let txt = text.suffix(text.count - 1)
+                showCalculation.text = String(txt)
             } else {
-                showNumberLabel.text = "-" + text
+                showCalculation.text = "-" + text
             }
-            
         }
         print("부호변환 버튼 클릭")
     }
     // 소수점 버튼 클릭 메서드
     @objc func didTapPointButton(_ sender: UIButton) {
-        if let text = showNumberLabel.text {
-            showNumberLabel.text = text + "."
+        if let text = showCalculation.text {
+            showCalculation.text = text + "."
         }
         print("소수점 버튼 클릭")
     }
     
+    // 수식 계산 메서드
+    func evaluateMathExpression(_ expression: String) -> Double? {
+        let exp = NSExpression(format: expression)
+        if let value = exp.expressionValue(with: nil, context: nil) as? Double {
+            return value
+        }
+        return nil
+    }
 
 }
 
