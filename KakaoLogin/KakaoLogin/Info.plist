@@ -9,15 +9,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaoba1c3e526ff03585d36557dbeee8c31e://</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakaoba1c3e526ff03585d36557dbeee8c31e://oauth</string>
+				<string>kakaoba1c3e526ff03585d36557dbeee8c31e</string>
 			</array>
 		</dict>
 	</array>
