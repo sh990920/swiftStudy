@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        KakaoSDK.initSDK(appKey: "d4a93960593319b0e37ab355e1284bb0")
+        KakaoSDK.initSDK(appKey: "ba1c3e526ff03585d36557dbeee8c31e")
         return true
     }
 
@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (AuthApi.isKakaoTalkLoginUrl(url)) {
             return AuthController.handleOpenUrl(url: url)
         }
-
         return false
     }
 
