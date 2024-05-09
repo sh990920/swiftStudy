@@ -9,12 +9,20 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaoba1c3e526ff03585d36557dbeee8c31e</string>
+				<string>kakaoe49f2a364bbc9bb36113ddf476438054</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakaoe49f2a364bbc9bb36113ddf476438054://oauth</string>
 			</array>
 		</dict>
 	</array>
 	<key>KAKAO_APP_KEY</key>
-	<string>ba1c3e526ff03585d36557dbeee8c31e</string>
+	<string>e49f2a364bbc9bb36113ddf476438054</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>

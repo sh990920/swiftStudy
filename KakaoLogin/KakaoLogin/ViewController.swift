@@ -28,7 +28,8 @@ class ViewController: UIViewController {
         nameLabelOutlet.isHidden = true
         self.nameLabelOutlet.text = "닉네임 : "
         // 카카오 SDK 초기화
-        KakaoSDK.initSDK(appKey: "ba1c3e526ff03585d36557dbeee8c31e")
+        //KakaoSDK.initSDK(appKey: "ba1c3e526ff03585d36557dbeee8c31e")
+        KakaoSDK.initSDK(appKey: "e49f2a364bbc9bb36113ddf476438054")
         // 로그인 상태확인
         self.checkLoginAndAuthenticateIfNeeded()
     }
