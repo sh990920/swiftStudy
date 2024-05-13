@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20B0A1F2BF206B6002746BC /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = A20B0A1E2BF206B6002746BC /* Config.plist */; };
 		A2A167992BE4BEF100261525 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A167982BE4BEF100261525 /* AppDelegate.swift */; };
 		A2A1679B2BE4BEF100261525 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A1679A2BE4BEF100261525 /* SceneDelegate.swift */; };
 		A2A1679D2BE4BEF100261525 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A1679C2BE4BEF100261525 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 		0677E2A36078856DD3563303 /* Pods-KakaoLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KakaoLogin.release.xcconfig"; path = "Target Support Files/Pods-KakaoLogin/Pods-KakaoLogin.release.xcconfig"; sourceTree = "<group>"; };
 		4234751C113E716D74695220 /* Pods_KakaoLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KakaoLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		666B3282F48E1BE76E76D443 /* Pods-KakaoLogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KakaoLogin.debug.xcconfig"; path = "Target Support Files/Pods-KakaoLogin/Pods-KakaoLogin.debug.xcconfig"; sourceTree = "<group>"; };
+		A20B0A1E2BF206B6002746BC /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		A2A167952BE4BEF100261525 /* KakaoLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KakaoLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2A167982BE4BEF100261525 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2A1679A2BE4BEF100261525 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				A2A167A12BE4BEF100261525 /* Assets.xcassets */,
 				A2A167A32BE4BEF100261525 /* LaunchScreen.storyboard */,
 				A2A167A62BE4BEF100261525 /* Info.plist */,
+				A20B0A1E2BF206B6002746BC /* Config.plist */,
 			);
 			path = KakaoLogin;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A20B0A1F2BF206B6002746BC /* Config.plist in Resources */,
 				A2A167A22BE4BEF100261525 /* Assets.xcassets in Resources */,
 				A2A167A52BE4BEF100261525 /* Base in Resources */,
 				A2A167A02BE4BEF100261525 /* Base in Resources */,

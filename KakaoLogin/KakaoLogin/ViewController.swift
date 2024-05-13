@@ -19,6 +19,17 @@ class ViewController: UIViewController {
     // 로그인 시 보여줄 닉네임 레이블
     @IBOutlet weak var nameLabelOutlet: UILabel!
     
+    var apiKey: String {
+        get {
+            guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+                  let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject],
+                  let key = dict["API_KEY"] as? String else {
+                fatalError("API Key not found.")
+            }
+            return key
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // 내용 및 사진 초기화
@@ -28,7 +39,7 @@ class ViewController: UIViewController {
         nameLabelOutlet.isHidden = true
         self.nameLabelOutlet.text = "닉네임 : "
         // 카카오 SDK 초기화
-        KakaoSDK.initSDK(appKey: "{앱 키}")
+        KakaoSDK.initSDK(appKey: apiKey)
         // 로그인 상태확인
         self.checkLoginAndAuthenticateIfNeeded()
     }
