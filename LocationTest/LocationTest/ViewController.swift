@@ -85,19 +85,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         //print("현재 날씨: \(weatherResponse.weather.first?.description ?? "정보 없음")")
                         self.weatherLabel.text = weatherResponse.weather.first?.description ?? "정보 없음"
                         //print("현재 온도: \(weatherResponse.main.temp)°C")
-                        self.tempLabel.text = String(weatherResponse.main.temp)
-                        self.feelLikeLabel.text = String(weatherResponse.main.feels_like)
-                        self.maxTempLabel.text = String(weatherResponse.main.temp_max)
-                        self.minTempLabel.text = String(weatherResponse.main.temp_min)
-                        self.humidityLabel.text = String(weatherResponse.main.humidity)
+                        self.tempLabel.text = "현재 기온 : \(weatherResponse.main.temp)℃"
+                        self.feelLikeLabel.text = "체감 온도 : \(weatherResponse.main.feels_like)℃"
+                        self.maxTempLabel.text = "최고 기온 : \(weatherResponse.main.temp_max)℃"
+                        self.minTempLabel.text = "최저 기온 : \(weatherResponse.main.temp_min)℃"
+                        self.humidityLabel.text = "습도 : \(weatherResponse.main.humidity)%"
                         //print("습도: \(weatherResponse.main.humidity)%")
                         let sunriseDate = Date(timeIntervalSince1970: TimeInterval(weatherResponse.sys.sunrise))
                         let sunsetDate = Date(timeIntervalSince1970: TimeInterval(weatherResponse.sys.sunset))
                         let dateFormatter = DateFormatter()
                         dateFormatter.timeZone = TimeZone(secondsFromGMT: weatherResponse.timezone)
                         dateFormatter.dateFormat = "HH:mm"
-                        self.sunriseLabel.text = dateFormatter.string(from: sunriseDate)
-                        self.sunsetLabel.text = dateFormatter.string(from: sunsetDate)
+                        self.sunriseLabel.text = "일출 시간 : \(dateFormatter.string(from: sunriseDate))"
+                        self.sunsetLabel.text = "일몰 시간 : \(dateFormatter.string(from: sunsetDate))"
 //                        print("일출 시간: \(dateFormatter.string(from: sunriseDate))")
 //                        print("일몰 시간: \(dateFormatter.string(from: sunsetDate))")
                     }
