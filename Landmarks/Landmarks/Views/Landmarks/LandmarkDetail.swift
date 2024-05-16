@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct LandmarkDetail: View {
+    @Environment(ModelData.self) var modelData
     var landmark: Landmark
     
+    var landmarkIndex: Int {
+        modelData.landmarks.firstIndex(where: { $0.id == landmark.id})!
+    }
+    
     var body: some View {
+        @Bindable var modelData = modelData
+        
         ScrollView {
             // 스택 상단에 이전에 만든 MapView 를 추가
             MapView(coordinate: landmark.locationCoordinate)
@@ -24,8 +31,12 @@ struct LandmarkDetail: View {
             
             // Vstack앞쪽 가장자리를 기준으로 뷰를 정렬하도록 이니셜라이저를 편집
             VStack(alignment: .leading) {
-                Text(landmark.name)
-                    .font(.title)
+                HStack {
+                    Text(landmark.name)
+                        .font(.title)
+                    FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
+                }
+                
                 HStack {
                     Text(landmark.park)
                     // Spacer는 내뇽에 의해서만 크기가 정의되는 대신 포함된 뷰가 상위 뷰의 모든 공간을 사용하도록 확장된다.
@@ -50,5 +61,7 @@ struct LandmarkDetail: View {
 }
 
 #Preview {
-    LandmarkDetail(landmark: ModelData().landmarks[0])
+    let modelData = ModelData()
+    return LandmarkDetail(landmark: ModelData().landmarks[0])
+        .environment(modelData)
 }
