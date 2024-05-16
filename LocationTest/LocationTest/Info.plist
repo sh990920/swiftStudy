@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>현재 위치좀 알려주쇼</string>
+	<string>현재위치를 사용하기 위한 권한</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>백그라운드에서도 돌아가게 허용좀 해주쇼</string>
+	<string>백그라운드에서 사용하기 위한 권한</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
